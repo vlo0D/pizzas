@@ -1,7 +1,8 @@
 ﻿using Pizzas;
 using Pizzas.Models;
+using System.Configuration;
 
-string fileName = @"..\..\..\Data\pizzas1.json";    //need use app config
+string fileName = ConfigurationManager.AppSettings["path"];  //From File Pizzas.dll.config
 
 Orders orders = new Orders();
 
@@ -13,16 +14,4 @@ analyz.GivePizzasName();    //Give for all pizzas name (first 2 letters)
 
 var topPizzas = analyz.GetTopTen();         //Get top 10 pizzas dictionary. (key - Pizza obj, val - count)
 
-Console.WriteLine("Top 10 Pizzas:\n");
-
-foreach(var pizza in topPizzas)
-{
-    Console.WriteLine($"Name: '{pizza.Key.Name}'. Orders: {pizza.Value}");
-    Console.WriteLine("Toppings:");
-    foreach (var top in pizza.Key.Toppings)
-    {
-        Console.WriteLine(top);
-    }
-    Console.WriteLine();
-}
-Console.WriteLine();
+ConsoleUI.ShowTopTen(topPizzas);        //Show pizzas on Console
